@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { MapPinIcon, PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import PrinterModal from "./PrinterModal";
 
 export default function Navbar({ catagory }: { catagory: string | undefined }) {
@@ -60,6 +60,12 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
             onClick={openPrinterModal}
           >
             <PrinterIcon className="h-12 w-12" />
+          </button>
+          <button
+            className="h-100 hover:bg-slate-600 p-4"
+            onClick={openPrinterModal}
+          >
+            <MapPinIcon className="h-12 w-12" />
           </button>
           <button className="h-100 hover:bg-slate-600 p-4">
             <UserCircleIcon className="h-12 w-12" />
