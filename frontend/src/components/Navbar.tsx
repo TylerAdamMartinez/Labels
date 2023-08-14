@@ -4,7 +4,13 @@ import { Bars3Icon } from "@heroicons/react/24/solid";
 import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar({ catagory }: { catagory: string | undefined }) {
-  const [enabled, setEnabled] = useState(false);
+  const isEnabled: boolean = sessionStorage.getItem("isBulkPrint") === "true";
+  const [enabled, setEnabled] = useState<boolean>(isEnabled);
+
+  const handleBulkPrintRequestChange = (checked: boolean) => {
+    setEnabled(checked);
+    sessionStorage.setItem("isBulkPrint", checked.toString());
+  };
 
   return (
     <div className="grid grid-cols-3 grid-rows-1 sticky top-0 w-100 px-8 bg-slate-700 text-white">
@@ -16,11 +22,11 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
           <label className="text text-center">Bulk Print</label>
           <Switch
             checked={enabled}
-            onChange={setEnabled}
+            onChange={handleBulkPrintRequestChange}
             className={`${enabled ? "bg-emerald-400" : "bg-slate-900"}
           relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
-            <span className="sr-only">Use setting</span>
+            <span className="sr-only">Bulk Print Toggle</span>
             <span
               aria-hidden="true"
               className={`${enabled ? "translate-x-9" : "translate-x-0"}
