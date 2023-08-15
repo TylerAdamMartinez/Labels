@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import { MapPinIcon, PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+  MapPinIcon,
+  PrinterIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import PrinterModal from "./PrinterModal";
 
 export default function Navbar({ catagory }: { catagory: string | undefined }) {
   const isEnabled: boolean = sessionStorage.getItem("isBulkPrint") === "true";
   const [enabled, setEnabled] = useState<boolean>(isEnabled);
+  const [isPrinterConnected, setPrinterConnection] = useState<boolean>(false);
+
+  const connectionStateHandler = (connectionState: boolean) => {
+    setPrinterConnection(connectionState);
+  };
 
   const handleBulkPrintRequestChange = (checked: boolean) => {
     setEnabled(checked);
@@ -56,13 +65,27 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
         </div>
         <div className="flex items-center justify-end gap-x-1 sm:gap-x-2 md:gap-x-4">
           <button
-            className="h-100 hover:bg-slate-600 p-4"
+            className="flex flex-col items-center justify-center h-100 hover:bg-slate-600 p-2"
             onClick={openPrinterModal}
           >
-            <PrinterIcon className="h-12 w-12" />
+            <div className="relative h-12 w-12">
+              <PrinterIcon className="h-full w-full" />
+              {isPrinterConnected ? (
+                <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500 border-2 border-slate-50"></span>
+              ) : (
+                <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 border-2 border-slate-50"></span>
+              )}
+            </div>
+            {isPrinterConnected ? (
+              <span className="text-xs uppercase text-center">Connected</span>
+            ) : (
+              <span className="text-xs uppercase text-center">
+                Disconnected
+              </span>
+            )}
           </button>
           <button
-            className="h-100 hover:bg-slate-600 p-4"
+            className="relative h-100 hover:bg-slate-600 p-4"
             onClick={openPrinterModal}
           >
             <MapPinIcon className="h-12 w-12" />
@@ -75,6 +98,7 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
       <PrinterModal
         isOpen={isPrinterModalOpen}
         closeModal={closePrinterModal}
+        connectionStateTranmitter={connectionStateHandler}
       />
       {catagory != undefined ? (
         <div className="bg-slate-900 md:hidden py-1">
