@@ -1,42 +1,29 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import {
-  MapPinIcon,
-  PrinterIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
-import PrinterModal from "./PrinterModal";
+import { MapPinIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import PrinterPopover from "./PrinterPopover";
+import SidebarPanel from "./SidebarPanel";
 
 export default function Navbar({ catagory }: { catagory: string | undefined }) {
   const isEnabled: boolean = sessionStorage.getItem("isBulkPrint") === "true";
   const [enabled, setEnabled] = useState<boolean>(isEnabled);
-  const [isPrinterConnected, setPrinterConnection] = useState<boolean>(false);
-
-  const connectionStateHandler = (connectionState: boolean) => {
-    setPrinterConnection(connectionState);
-  };
+  const [openPanel, setOpenPanel] = useState<boolean>(false);
 
   const handleBulkPrintRequestChange = (checked: boolean) => {
     setEnabled(checked);
     sessionStorage.setItem("isBulkPrint", checked.toString());
   };
 
-  let [isPrinterModalOpen, setIsPrinterModalOpen] = useState(false);
-
-  function closePrinterModal() {
-    setIsPrinterModalOpen(false);
-  }
-
-  function openPrinterModal() {
-    setIsPrinterModalOpen(true);
-  }
-
+  const closePanel = () => {
+    setOpenPanel(false);
+  };
+  
   return (
     <div className="grid grid-cols-1 grid-rows-auto">
       <div className="grid grid-cols-3 grid-rows-1 sticky top-0 w-100 px-2 sm:px-4 md:px-8 bg-slate-700 text-white">
         <div className="flex items-center justify-start gap-x-1 sm:gap-x-2 md:gap-x-4">
-          <button className="h-100 hover:bg-slate-600 p-4">
+          <button className="h-100 hover:bg-slate-600 p-4" onClick={() => {setOpenPanel(true)}}>
             <Bars3Icon className="h-12 w-12" />
           </button>
           <div className="hidden md:flex gap-x-2 items-center justify-center">
@@ -64,30 +51,8 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
           ) : null}
         </div>
         <div className="flex items-center justify-end gap-x-1 sm:gap-x-2 md:gap-x-4">
-          <button
-            className="flex flex-col items-center justify-center h-100 hover:bg-slate-600 p-2"
-            onClick={openPrinterModal}
-          >
-            <div className="relative h-12 w-12">
-              <PrinterIcon className="h-full w-full" />
-              {isPrinterConnected ? (
-                <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500 border-2 border-slate-50"></span>
-              ) : (
-                <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 border-2 border-slate-50"></span>
-              )}
-            </div>
-            {isPrinterConnected ? (
-              <span className="text-xs uppercase text-center">Connected</span>
-            ) : (
-              <span className="text-xs uppercase text-center">
-                Disconnected
-              </span>
-            )}
-          </button>
-          <button
-            className="relative h-100 hover:bg-slate-600 p-4"
-            onClick={openPrinterModal}
-          >
+          <PrinterPopover />
+          <button className="h-100 hover:bg-slate-600 p-4">
             <MapPinIcon className="h-12 w-12" />
           </button>
           <button className="h-100 hover:bg-slate-600 p-4">
@@ -95,11 +60,7 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
           </button>
         </div>
       </div>
-      <PrinterModal
-        isOpen={isPrinterModalOpen}
-        closeModal={closePrinterModal}
-        connectionStateTranmitter={connectionStateHandler}
-      />
+      <SidebarPanel isOpen={openPanel} closePanel={closePanel} />
       {catagory != undefined ? (
         <div className="bg-slate-900 md:hidden py-1">
           <h1 className="text-white text-center text-3xl font-bold select-none">
