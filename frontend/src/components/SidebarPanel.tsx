@@ -1,8 +1,10 @@
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function SidebarPanel({isOpen, closePanel}: {isOpen: boolean, closePanel: () => void}) {
+export default function SidebarPanel(
+  { isOpen, closePanel }: { isOpen: boolean; closePanel: () => void },
+) {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closePanel}>
@@ -58,7 +60,9 @@ export default function SidebarPanel({isOpen, closePanel}: {isOpen: boolean, clo
                         Panel title
                       </Dialog.Title>
                     </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">{/* Your content */}</div>
+                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                      {/* Your content */}
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -67,5 +71,5 @@ export default function SidebarPanel({isOpen, closePanel}: {isOpen: boolean, clo
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

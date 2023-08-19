@@ -18,12 +18,17 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
   const closePanel = () => {
     setOpenPanel(false);
   };
-  
+
   return (
     <div className="grid grid-cols-1 grid-rows-auto">
       <div className="grid grid-cols-3 grid-rows-1 sticky top-0 w-100 px-2 sm:px-4 md:px-8 bg-slate-700 text-white">
         <div className="flex items-center justify-start gap-x-1 sm:gap-x-2 md:gap-x-4">
-          <button className="h-100 hover:bg-slate-600 p-4" onClick={() => {setOpenPanel(true)}}>
+          <button
+            className="h-100 hover:bg-slate-600 p-4"
+            onClick={() => {
+              setOpenPanel(true);
+            }}
+          >
             <Bars3Icon className="h-12 w-12" />
           </button>
           <div className="hidden md:flex gap-x-2 items-center justify-center">
@@ -44,11 +49,13 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
           </div>
         </div>
         <div className="flex items-center justify-center">
-          {catagory != undefined ? (
-            <h1 className="hidden sm:visible sm:text-2xl md:text-3xl font-bold select-none">
-              {catagory}
-            </h1>
-          ) : null}
+          {catagory != undefined
+            ? (
+              <h1 className="hidden sm:visible sm:text-2xl md:text-3xl font-bold select-none">
+                {catagory}
+              </h1>
+            )
+            : null}
         </div>
         <div className="flex items-center justify-end gap-x-1 sm:gap-x-2 md:gap-x-4">
           <PrinterPopover />
@@ -61,13 +68,15 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
         </div>
       </div>
       <SidebarPanel isOpen={openPanel} closePanel={closePanel} />
-      {catagory != undefined ? (
-        <div className="bg-slate-900 md:hidden py-1">
-          <h1 className="text-white text-center text-3xl font-bold select-none">
-            {catagory}
-          </h1>
-        </div>
-      ) : null}
+      {catagory != undefined
+        ? (
+          <div className="bg-slate-900 md:hidden py-1">
+            <h1 className="text-white text-center text-3xl font-bold select-none">
+              {catagory}
+            </h1>
+          </div>
+        )
+        : null}
     </div>
   );
 }
