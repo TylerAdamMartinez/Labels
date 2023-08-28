@@ -7,3 +7,6 @@
 
 # Fresh build directory
 _fresh/
+
+# Rust backend build directory
+backend/target/
