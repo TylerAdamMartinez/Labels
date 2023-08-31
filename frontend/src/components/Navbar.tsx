@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import { MapPinIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+  MapPinIcon,
+  UserCircleIcon,
+  PrinterIcon,
+} from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
-import PrinterPopover from "./PrinterPopover";
 import SidebarPanel from "./SidebarPanel";
 
 export default function Navbar({ catagory }: { catagory: string | undefined }) {
@@ -57,13 +60,13 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
           ) : null}
         </div>
         <div className="flex items-center justify-end gap-x-1 sm:gap-x-2 md:gap-x-4">
-          <NavLink to="/locations" className="h-100 hover:bg-slate-600 p-4">
-            <PrinterPopover />
+          <NavLink to="/printers" className="h-100 hover:bg-slate-600 p-4">
+            <PrinterIcon className="h-12 w-12" />
           </NavLink>
           <NavLink to="/locations" className="h-100 hover:bg-slate-600 p-4">
             <MapPinIcon className="h-12 w-12" />
           </NavLink>
-          <NavLink to="/locations" className="h-100 hover:bg-slate-600 p-4">
+          <NavLink to="/settings" className="h-100 hover:bg-slate-600 p-4">
             <UserCircleIcon className="h-12 w-12" />
           </NavLink>
         </div>

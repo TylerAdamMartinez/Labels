@@ -9,6 +9,7 @@ import Printer from "./pages/Printer";
 import Printers from "./pages/Printers";
 import Location from "./pages/Location";
 import Locations from "./pages/Locations";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/location/:id",
         element: <Location />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },
