@@ -2,9 +2,10 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function SidebarPanel(
-  { isOpen, closePanel }: { isOpen: boolean; closePanel: () => void },
-) {
+export default function SidebarPanel({
+  isOpen,
+  closePanel,
+}: { isOpen: boolean; closePanel: () => void }) {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closePanel}>

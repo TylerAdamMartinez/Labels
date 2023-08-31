@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { MapPinIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { NavLink } from "react-router-dom";
 import PrinterPopover from "./PrinterPopover";
 import SidebarPanel from "./SidebarPanel";
 
@@ -49,34 +50,32 @@ export default function Navbar({ catagory }: { catagory: string | undefined }) {
           </div>
         </div>
         <div className="flex items-center justify-center">
-          {catagory != undefined
-            ? (
-              <h1 className="hidden sm:visible sm:text-2xl md:text-3xl font-bold select-none">
-                {catagory}
-              </h1>
-            )
-            : null}
+          {catagory != undefined ? (
+            <h1 className="hidden sm:visible sm:text-2xl md:text-3xl font-bold select-none">
+              {catagory}
+            </h1>
+          ) : null}
         </div>
         <div className="flex items-center justify-end gap-x-1 sm:gap-x-2 md:gap-x-4">
-          <PrinterPopover />
-          <button className="h-100 hover:bg-slate-600 p-4">
+          <NavLink to="/locations" className="h-100 hover:bg-slate-600 p-4">
+            <PrinterPopover />
+          </NavLink>
+          <NavLink to="/locations" className="h-100 hover:bg-slate-600 p-4">
             <MapPinIcon className="h-12 w-12" />
-          </button>
-          <button className="h-100 hover:bg-slate-600 p-4">
+          </NavLink>
+          <NavLink to="/locations" className="h-100 hover:bg-slate-600 p-4">
             <UserCircleIcon className="h-12 w-12" />
-          </button>
+          </NavLink>
         </div>
       </div>
       <SidebarPanel isOpen={openPanel} closePanel={closePanel} />
-      {catagory != undefined
-        ? (
-          <div className="bg-slate-900 md:hidden py-1">
-            <h1 className="text-white text-center text-3xl font-bold select-none">
-              {catagory}
-            </h1>
-          </div>
-        )
-        : null}
+      {catagory != undefined ? (
+        <div className="bg-slate-900 md:hidden py-1">
+          <h1 className="text-white text-center text-3xl font-bold select-none">
+            {catagory}
+          </h1>
+        </div>
+      ) : null}
     </div>
   );
 }

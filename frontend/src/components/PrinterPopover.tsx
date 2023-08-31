@@ -47,9 +47,8 @@ export default function PrinterPopover() {
   const preselectedPrinter: IPlan =
     plans.find((plan) => plan.id === printerIdInSessionStorage) || plans[0];
 
-  const [selectedPrinter, setSelectedPrinter] = useState<IPlan>(
-    preselectedPrinter,
-  );
+  const [selectedPrinter, setSelectedPrinter] =
+    useState<IPlan>(preselectedPrinter);
 
   const handlePrinterRequestChange = (printer: IPlan): void => {
     sessionStorage.setItem("printerId", printer.id);
@@ -66,23 +65,17 @@ export default function PrinterPopover() {
         <Popover.Button className="flex flex-col items-center justify-center h-100 hover:bg-slate-600 p-2">
           <div className="relative h-12 w-12">
             <PrinterIcon className="h-full w-full" />
-            {isPrinterConnected
-              ? (
-                <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500 border-2 border-slate-50">
-                </span>
-              )
-              : (
-                <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 border-2 border-slate-50">
-                </span>
-              )}
-          </div>
-          {isPrinterConnected
-            ? <span className="text-xs uppercase text-center">Connected</span>
-            : (
-              <span className="text-xs uppercase text-center">
-                Disconnected
-              </span>
+            {isPrinterConnected ? (
+              <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500 border-2 border-slate-50"></span>
+            ) : (
+              <span className="absolute top-2 right-2 block w-4 h-4 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 border-2 border-slate-50"></span>
             )}
+          </div>
+          {isPrinterConnected ? (
+            <span className="text-xs uppercase text-center">Connected</span>
+          ) : (
+            <span className="text-xs uppercase text-center">Disconnected</span>
+          )}
         </Popover.Button>
         <Transition
           as={Fragment}
@@ -120,11 +113,12 @@ export default function PrinterPopover() {
                               : ""
                           }
                   ${
-                            checked
-                              ? "outline outline-2 outline-emerald-400 bg-emerald-50 text-slate-600"
-                              : "bg-white"
-                          }
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none hover:bg-emerald-50`}
+                    checked
+                      ? "outline outline-2 outline-emerald-400 bg-emerald-50 text-slate-600"
+                      : "bg-white"
+                  }
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none hover:bg-emerald-50`
+                        }
                       >
                         {({ checked }) => (
                           <>
@@ -152,8 +146,7 @@ export default function PrinterPopover() {
                                     <span>
                                       {plan.ram}/{plan.cpus}
                                     </span>{" "}
-                                    <span aria-hidden="true">&middot;</span>
-                                    {" "}
+                                    <span aria-hidden="true">&middot;</span>{" "}
                                     <span>{plan.disk}</span>
                                   </RadioGroup.Description>
                                 </div>

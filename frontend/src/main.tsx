@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import './index.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
 
 import App from "./App.tsx";
 import Dashboard from "./pages/Dashboard";
 import Printer from "./pages/Printer";
-
+import Printers from "./pages/Printers";
+import Location from "./pages/Location";
+import Locations from "./pages/Locations";
 
 const router = createBrowserRouter([
   {
@@ -21,14 +20,23 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
+        path: "/printers",
+        element: <Printers />,
+      },
+      {
         path: "/printer/:id",
         element: <Printer />,
       },
-
-    ]
+      {
+        path: "/locations",
+        element: <Locations />,
+      },
+      {
+        path: "/location/:id",
+        element: <Location />,
+      },
+    ],
   },
-  
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

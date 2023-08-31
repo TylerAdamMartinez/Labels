@@ -54,9 +54,8 @@ export default function PrinterModal({
   const preselectedPrinter: IPlan =
     plans.find((plan) => plan.id === printerIdInSessionStorage) || plans[0];
 
-  const [selectedPrinter, setSelectedPrinter] = useState<IPlan>(
-    preselectedPrinter,
-  );
+  const [selectedPrinter, setSelectedPrinter] =
+    useState<IPlan>(preselectedPrinter);
 
   const handlePrinterRequestChange = (printer: IPlan): void => {
     sessionStorage.setItem("printerId", printer.id);
@@ -128,11 +127,12 @@ export default function PrinterModal({
                                   : ""
                               }
                   ${
-                                checked
-                                  ? "outline outline-2 outline-emerald-400 bg-emerald-50 text-slate-600"
-                                  : "bg-white"
-                              }
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none hover:bg-emerald-50`}
+                    checked
+                      ? "outline outline-2 outline-emerald-400 bg-emerald-50 text-slate-600"
+                      : "bg-white"
+                  }
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none hover:bg-emerald-50`
+                            }
                           >
                             {({ checked }) => (
                               <>
@@ -160,8 +160,7 @@ export default function PrinterModal({
                                         <span>
                                           {plan.ram}/{plan.cpus}
                                         </span>{" "}
-                                        <span aria-hidden="true">&middot;</span>
-                                        {" "}
+                                        <span aria-hidden="true">&middot;</span>{" "}
                                         <span>{plan.disk}</span>
                                       </RadioGroup.Description>
                                     </div>

@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 
-export default function Printer() {
+export default function Location() {
   const { id } = useParams<{ id: string }>();
   return (
     <>
-      <p>Printer {id}</p>
+      <p>Location {id}</p>
     </>
   );
 }
